@@ -1,3 +1,4 @@
+from pprint import pprint
 from os import getenv
 
 from lumibot.strategies import Strategy
@@ -6,13 +7,21 @@ from lumibot.traders import Trader
 from lumibot.entities import Asset
 
 
-ALPACA_CONFIG = {
-    'API_KEY': getenv('ALPACA_API_KEY'),
-    'API_SECRET': getenv('ALPACA_API_SECRET'),
-    "PAPER": True if getenv('ALPACA_IS_PAPER', 'true').lower() == 'true' else False,
+from os import getenv
+
+from lumibot.brokers import Ccxt
+
+WOOFI_PRO_CONFIG = {
+    "exchange_id": "woofipro",
+    "api_key": getenv("WOOFIPRO_API_KEY"),
+    "secret": getenv("WOOFIPRO_API_SECRET"),
+    "accountId": getenv("WOOFIPRO_ACCOUNT_ID"),
+    "privateKey": getenv("WALLET_PRIVATE_KEY"),
+    "sandbox": True if getenv("WOOFIPRO_IS_SANDBOX", "true").lower() == "true" else False,
 }
 
-broker = Alpaca(ALPACA_CONFIG)
+broker = Ccxt(WOOFI_PRO_CONFIG)
+pprint(broker._fetch_balance())
 
 class MyStrategy(Strategy):
     def on_trading_iteration(self):
