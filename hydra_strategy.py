@@ -82,8 +82,6 @@ class HydraStrategy(Strategy):
                     if not self.is_backtesting: self.wait_for_order_execution(order)
 
 
-strategy = HydraStrategy()
-
 backtesting_start = datetime(2025, 8, 23)
 backtesting_end = datetime(2025, 8, 30)
 
@@ -118,6 +116,7 @@ pandas_data = {
 }
 # print(df.tail())
 
+strategy = HydraStrategy()
 strategy.backtest(
     PandasDataBacktesting,
     backtesting_start=pandas_data[asset].datetime_start,
